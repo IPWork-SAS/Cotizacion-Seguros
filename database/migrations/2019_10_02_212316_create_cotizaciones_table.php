@@ -17,7 +17,7 @@ class CreateCotizacionsTable extends Migration
         Schema::enableForeignKeyConstraints();
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->bigIncrements('id_cotizacion');
-            $table->string('valor_seguro');
+            $table->string('valor_dia');
             $table->string('valor_total');
             $table->timestamp('fecha_inicio');
             $table->timestamp('fecha_fin');
