@@ -16,7 +16,5 @@ Route::get('/', function () {
     return view('administrador.index');
 });
 
-Route::get('testTablas', function () {
-    $test = Usuario::where('id_usuario', 1)->first();
-    dd($test);
-});
+Route::get('laravel-send-email', 'EmailController@sendEMailAdmin');
+
