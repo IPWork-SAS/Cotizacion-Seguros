@@ -12,12 +12,12 @@ class UsuariosTableSeeder extends Seeder
     public function run()
     {
         DB::table('usuarios')->insert([
-            'nombres' => Str::random(10),
-            'apellidos' => Str::random(10),
-            'numero_documento' => Str::random(10),
-            'telefono' => Str::random(10),
-            'correo'=>Str::random(10),
-            'ubicacion'=>Str::random(10)
+            'nombres' => 'Luisa',
+            'apellidos' => 'Jaramillo',
+            'numero_documento' => '109872665',
+            'telefono' => '3224324444',
+            'correo'=>'example@example.com',
+            'ubicacion'=>Str::random(20)
         ]);
     }
 }

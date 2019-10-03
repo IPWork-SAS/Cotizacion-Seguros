@@ -12,17 +12,22 @@ class PlanesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
         DB::table('planes')->insert([
             'nombre_plan' => 'Seguro de vida A',
             'clave' => Str::random(10),
             'id_aseguradora' => 1
         ]);
+
         DB::table('planes')->insert([
             'nombre_plan' => 'Seguro de vida B',
             'clave' => Str::random(10),
             'id_aseguradora' => 2
         ]);
-        
+        DB::table('planes')->insert([
+            'nombre_plan' => 'Seguro de vida C',
+            'clave' => Str::random(10),
+            'id_aseguradora' => 3
+        ]);
     }
 }

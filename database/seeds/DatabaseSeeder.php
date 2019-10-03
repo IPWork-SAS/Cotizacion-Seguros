@@ -1,5 +1,6 @@
 <?php
 
+use App\Valor_seguro;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,9 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsuariosTableSeeder::class);
         $this->call(AseguradorasTableSeeder::class);
-        // $this->call(PlanesTableSeeder::class);
+        $this->call(PlanesTableSeeder::class);
+        $this->call(Valor_segurosTableSeeder::class);
+        $this->call(Rango_edadesTableSeeder::class);
 
     }
 }
