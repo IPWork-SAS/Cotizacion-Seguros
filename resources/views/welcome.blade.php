@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <head>
 
-</head>
-<body>
-    <h1>Vista formulario de ingreso aceptado</h1>
-</body>
+    <p>Laravel</p><br>
+    <a href="/cotizacion">Cotizar</a>
     
 </html>
