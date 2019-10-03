@@ -13,9 +13,11 @@ use App\Usuario;
 */
 
 Route::get('/', function () {
-    return view('administrador.index');
+    return view('welcome');
 });
 
+Route::get('/cotizacion', 'CotizacionController@index');
+Route::post('/cotizacionInfo', 'CotizacionController@informacion');
 Route::get('testTablas', function () {
     $test = Usuario::where('id_usuario', 1)->first();
     dd($test);
