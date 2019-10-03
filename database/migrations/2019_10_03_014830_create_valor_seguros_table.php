@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRangoEdadsTable extends Migration
+class CreateValorSegurosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateRangoEdadsTable extends Migration
      */
     public function up()
     {
-        Schema::enableForeignKeyConstraints();
-        Schema::create('rango_edades', function (Blueprint $table) {
-            $table->bigIncrements('id_rango_edad');
-            $table->string('edad_inicial');
-            $table->string('edad_final');
-            $table->foreign('id_aseguradora')->references('id_aseguradora')->on('aseguradoras');
+        Schema::create('valor_seguros', function (Blueprint $table) {
+            $table->bigIncrements('id_valor_seguro');
+            $table->string('valor_seguro',100);
+            $table->unsignedBigInteger('id_plan');
+            $table->unsignedBigInteger('id_aseguradora');
             $table->foreign('id_plan')->references('id_plan')->on('planes')->onDelete('cascade');
+            $table->foreign('id_aseguradora')->references('id_aseguradora')->on('aseguradoras')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateRangoEdadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rango_edades');
+        Schema::dropIfExists('valor_seguros');
     }
 }

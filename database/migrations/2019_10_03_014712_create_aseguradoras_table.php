@@ -13,10 +13,9 @@ class CreateAseguradorasTable extends Migration
      */
     public function up()
     {
-        Schema::enableForeignKeyConstraints();
         Schema::create('aseguradoras', function (Blueprint $table) {
             $table->bigIncrements('id_aseguradora');
-            $table->string('nombre');
+            $table->string('nombre_aseguradora',100);
             $table->timestamps();
         });
     }

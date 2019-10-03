@@ -1,5 +1,6 @@
 <?php
 
+use App\Usuario;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +13,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('administrador.index');
+});
+
+Route::get('testTablas', function () {
+    $test = Usuario::where('id_usuario', 1)->first();
+    dd($test);
 });
