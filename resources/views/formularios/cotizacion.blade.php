@@ -1,50 +1,81 @@
-{{-- @extends('layouts.header') --}}
+@extends('layouts.header')
+@section('titulo')
+<b>Cotización de seguros</b>
+@endsection
 @section('contenido')
-<div class="container">
+<form action="/cotizacionInfo" method="post" class="wufoo leftLabel hideMarkers cotizacion">
+    @csrf
     <div class="row">
-        <h2>Cotización de seguros {{$hola}}</h2>
-        <form action="/cotizacionInfo" method="post">
-            @csrf
-            <div class="form-group col-lg-12 col-md-12 col sm-12">
-                <label class="col-form-label">
-                    Nombre 
-                </label>
-                <input type="text" class="form-control" name="nombre">
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col sm-12">
-                <label class="col-form-label">
-                    Apellido 
-                </label>
-                <input type="text" class="form-control" name="apellido">
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col sm-12">
-                <label class="col-form-label">
-                    Tipo Documento 
-                </label>
-                <input type="text" class="form-control" name="tipodocumento">
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col sm-12">
-                <label class="col-form-label">
-                    # Documento 
-                </label>
-                <input type="text" class="form-control" name="numerodocumento">
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col sm-12">
-                <label class="col-form-label">
-                    Correo Electronico 
-                </label>
-                <input type="text" class="form-control" name="correo">
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col sm-12">
-                <label class="col-form-label">
-                    Telefono 
-                </label>
-                <input type="text" class="form-control" name="telefono">
-            </div>
-            <div class="form-group col-lg-12 col-md-12 col sm-12">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </div>
-        </form>
+        <h4><b>DATOS DEL COTIZANTE</b></h4>
     </div>
-</div>
-{{-- @extends('layouts.footer') --}}
+    <div class="row">
+        <div class="column">
+            <label class="desc">
+                Nombre:
+            </label>
+            <input name="nombres" type="text" class="field text large" value="" size="8" tabindex="0" required="">
+        </div>
+        <div class="column">
+            <label class="desc">
+                Apellido:
+            </label>
+            <input name="apellidos" type="text" class="field text large" value="" size="14" tabindex="0" required="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label class="desc">
+                Tipo Documento:
+            </label>
+            <select name="tipodocumento" class="field select large" data-wufoo-field="dropdown" required>
+                <option value="">Seleccione...</option>
+                <option value="CC">Cedula Ciudadania</option>
+                <option value="CE">Cedula Extranjera</option>
+                <option value="RUT">Rut</option>
+                <option value="NIT">Nit</option>
+            </select>
+        </div>
+        <div class="column">
+            <label class="desc">
+                # Documento:
+            </label>
+            <input class="field text large" name="numerodocumento" required="" type="number" minlength="7" maxlength="255" value="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label class="desc">
+                Correo Electronico:
+            </label>
+            <input name="correo" type="email" spellcheck="false" class="field text large" value="" maxlength="255" required="">
+        </div>
+        <div class="column">
+            <label class="desc">
+                Telefono:
+            </label>
+            <input class="field text large" name="telefono" required="" type="number" minlength="10" maxlength="255" value="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label class="desc">
+                Valor a cotizar:
+            </label>
+            <select name="valorseguro" class="field select large" data-wufoo-field="dropdown">
+                <option value="">Seleccione...</option>
+                <option value="1">1</option>
+            </select>
+        </div>
+        <div class="column">
+            <label class="desc">
+                Edad:
+            </label>
+            <input class="field text large" name="edadcotizante" required="" type="number" minlength="1" min="0" maxlength="255" value="">
+        </div>
+    </div>
+    <hr>
+    <div style="text-align: center; margin-top: 25px;">
+        <button type="submit">Enviar</button>
+    </div>
+</form>
+@endsection
