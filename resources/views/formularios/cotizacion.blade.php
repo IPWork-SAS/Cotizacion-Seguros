@@ -27,7 +27,7 @@
             <label class="desc">
                 Tipo Documento:
             </label>
-            <select name="tipodocumento" class="field select large" data-wufoo-field="dropdown" required>
+            <select name="tipo_documento" class="field select large" data-wufoo-field="dropdown" required>
                 <option value="">Seleccione...</option>
                 <option value="CC">Cedula Ciudadania</option>
                 <option value="CE">Cedula Extranjera</option>
@@ -39,7 +39,7 @@
             <label class="desc">
                 # Documento:
             </label>
-            <input class="field text large" name="numerodocumento" required="" type="number" minlength="7" maxlength="255" value="">
+            <input class="field text large" name="numero_documento" required="" type="number" minlength="7" maxlength="255" value="">
         </div>
     </div>
     <div class="row">
@@ -61,7 +61,7 @@
             <label class="desc">
                 Valor a cotizar:
             </label>
-            <select name="valorseguro" class="field select large" data-wufoo-field="dropdown">
+            <select name="valor_seguro" class="field select large" data-wufoo-field="dropdown">
                 <option value="">Seleccione...</option>
                 <option value="1">1</option>
             </select>
@@ -70,7 +70,7 @@
             <label class="desc">
                 Edad:
             </label>
-            <input class="field text large" name="edadcotizante" required="" type="number" minlength="1" min="0" maxlength="255" value="">
+            <input class="field text large" name="edad_cotizante" required="" type="number" minlength="1" min="0" maxlength="255" value="">
         </div>
     </div>
     <hr>
