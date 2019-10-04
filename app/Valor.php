@@ -8,7 +8,7 @@ class Valor extends Model
 {
     protected $table = 'valores';
     protected $fillable=[
-        'valores',
+        'valor',
     ];
     protected $primaryKey = 'id_valor';
 }

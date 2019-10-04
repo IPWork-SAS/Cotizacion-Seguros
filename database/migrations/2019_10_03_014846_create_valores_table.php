@@ -15,7 +15,7 @@ class CreateValoresTable extends Migration
     {
         Schema::create('valores', function (Blueprint $table) {
             $table->bigIncrements('id_valor');
-            $table->string('valores',100);
+            $table->string('valor',100);
             $table->unsignedBigInteger('id_rango_edad');
             $table->unsignedBigInteger('id_valor_seguro');
             $table->foreign('id_rango_edad')->references('id_rango_edad')->on('rango_edades')->onDelete('cascade');

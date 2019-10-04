@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\EmailEnvioUsuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mail;
 use Session;
@@ -12,7 +13,8 @@ class CotizacionController extends Controller
 {
     public function index()
     {
-        return view('formularios.cotizacion');
+        $costos=DB::table('valor_seguros')->select('valor_seguro')->get();
+        return view('formularios.cotizacion',compact('costos'));
     }
     public function informacionCliente(Request $request)
     {
@@ -33,7 +35,7 @@ class CotizacionController extends Controller
             'telefono' => $telefono
         ]);
         // $subject = 'Código de Verificación';
-        $body = '';
+        // $body = '';
         // Mail::to($user)->send(new MailNotify($user));
         // Mail::send([], [], function ($message) use($correo,$subject,$body){
         //     $message->to($correo)
