@@ -77,6 +77,20 @@
     </div>
     <hr>
     <div class="row">
+            <div class="column">
+                <label class="desc">
+                    Fecha Inicio:
+                </label>
+                <input class="field text large" name="fecha_inicio" required="" type="date" value="">
+            </div>
+            <div class="column">
+                <label class="desc">
+                    Fecha Fin:
+                </label>
+                <input class="field text large" name="fecha_fin" required="" type="date" value="">
+            </div>
+        </div>
+    <div class="row">
             <h4><b>Afiliados</b></h4>
         </div>
     <div style="text-align: center; margin-bottom: 10px;" id="DivSubmit">
