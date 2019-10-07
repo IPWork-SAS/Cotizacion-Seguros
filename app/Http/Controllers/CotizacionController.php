@@ -67,6 +67,7 @@ class CotizacionController extends Controller
         if ($codigo == $request->input('codigo')) {
 
            $consultaCalculos= Db::table('valor_seguros')
+           ->select('aseguradoras.id_aseguradora', 'aseguradoras.nombre_aseguradora', 'planes.id_plan','planes.nombre_plan','valor_seguros.id_valor_seguro')
             ->join('aseguradoras','valor_seguros.id_aseguradora','=','aseguradoras.id_aseguradora')
             ->join('planes','planes.id_plan','=','valor_seguros.id_plan')
             ->where('valor_seguros.valor_seguro','=','230000')

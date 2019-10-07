@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PlanesTableSeeder::class);
         $this->call(Valor_segurosTableSeeder::class);
         $this->call(Rango_edadesTableSeeder::class);
-
+        // $this->call(UsuariosTableSeeder::class);
+        // $this->call(CotizacionesTableSeeder::class);
     }
 }

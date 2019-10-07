@@ -14,9 +14,11 @@ class UsuariosTableSeeder extends Seeder
         DB::table('usuarios')->insert([
             'nombres' => 'Luisa',
             'apellidos' => 'Jaramillo',
+            'tipo_documento' => 'CC',
             'numero_documento' => '109872665',
             'telefono' => '3224324444',
-            'correo'=>'example@example.com',
+            'correo'=> 'example@example.com',
+            'edad' => '10',
             'ubicacion'=>Str::random(20)
         ]);
     }
