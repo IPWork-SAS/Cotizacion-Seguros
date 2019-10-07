@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\CodigoDeVerificacion;
+use App\Valor_seguro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -61,9 +62,18 @@ class CotizacionController extends Controller
     public function validacionCliente(Request $request)
     {
         $consultaAseguradoras=DB::table('aseguradoras')->get();
+        $consultaPlanes=DB::table('planes')->get();
         $codigo = session('codigo');
         if ($codigo == $request->input('codigo')) {
-            return $consultaAseguradoras;
+
+           $consultaCalculos= Db::table('valor_seguros')
+            ->join('aseguradoras','valor_seguros.id_aseguradora','=','aseguradoras.id_aseguradora')
+            ->join('planes','planes.id_plan','=','valor_seguros.id_plan')
+            ->where('valor_seguros.valor_seguro','=','230000')
+            ->get();
+
+            // return ['consultaAseguradoras'=>$consultaAseguradoras];
+            return $consultaCalculos;
         } else {
             // return view('formularios.cotizacion');
             abort(403);
