@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mail;
-use Session;
+use Carbon\Carbon;
 
 class CotizacionController extends Controller
 {
@@ -61,13 +61,20 @@ class CotizacionController extends Controller
     public function validacionCliente(Request $request)
     {
         $consultaAseguradoras=DB::table('aseguradoras')->get();
+        /* session('request');
+        $fecha_inicio = new Carbon(session('request')['fecha_inicio']);
+        $fecha_fin = new Carbon(session('request')['fecha_fin']);
+        $dias = $fecha_inicio->diff($fecha_fin)->days;
+        $rangoedad=  DB::table('rango_edades')
+            ->select('id_rango_edad')
+            ->where('edad_inicial', '<=', session('request')['edad_cotizante'])
+            ->where('edad_final', '>=', session('request')['edad_cotizante'])
+            ->get();
+        return $dias; */
         $codigo = session('codigo');
-        if ($codigo == $request->input('codigo')) {
-            return $consultaAseguradoras;
-        } else {
-            // return view('formularios.cotizacion');
+        if($codigo !== $request->input('codigo')){
             abort(403);
-            // return 'El código introducido no es correcto, por favor solicite un nuevo codigo';
         }
+        // return $consultaAseguradoras;
     }
 }
