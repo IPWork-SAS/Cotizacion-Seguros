@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Mail\CodigoDeVerificacion;
+use App\Valor_seguro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Mail;
 use Carbon\Carbon;
+use App\Usuario;
+use App\Cotizacion;
 
 class CotizacionController extends Controller
 {
@@ -60,7 +63,6 @@ class CotizacionController extends Controller
     }
     public function validacionCliente(Request $request)
     {
-        $consultaAseguradoras=DB::table('aseguradoras')->get();
         /* session('request');
         $fecha_inicio = new Carbon(session('request')['fecha_inicio']);
         $fecha_fin = new Carbon(session('request')['fecha_fin']);
@@ -75,6 +77,37 @@ class CotizacionController extends Controller
         if($codigo !== $request->input('codigo')){
             abort(403);
         }
-        // return $consultaAseguradoras;
+        $consultaCalculos= Db::table('valor_seguros')
+            ->join('aseguradoras','valor_seguros.id_aseguradora','=','aseguradoras.id_aseguradora')
+            ->join('planes','planes.id_plan','=','valor_seguros.id_plan')
+            ->where('valor_seguros.valor_seguro','=', session('request')['valor_seguro'])
+            ->get();
+        
+        if(count($consultaCalculos) > 0){
+            $usuario = new Usuario();
+            $usuario->nombres = session('request')['nombres'];
+            $usuario->apellidos = session('request')['apellidos'];
+            $usuario->tipo_documento = session('request')['tipo_documento'];
+            $usuario->numero_documento = session('request')['numero_documento'];
+            $usuario->telefono = session('request')['telefono'];
+            $usuario->correo = session('request')['correo'];
+            $usuario->edad = session('request')['edad_cotizante'];
+            $usuario->ubicacion = "Mi ubicacion actual";
+            $usuario->save();
+
+            for ($i=0; $i < count($consultaCalculos); $i++) { 
+                
+                /*  $cotizacion = "insersion de la cotización";
+                if(count(session('request')['nombre_afiliado']) > 0){
+                    for ($i=0; $i < count(session('request')['nombre_afiliado']); $i++) { 
+                        $cotizacionAfiliado= "insersion de los afiliados a su cotizacion";
+                    }
+                } */
+            }
+        }
+        else{
+            abort(503);
+        }
+        return session('request');
     }
 }
