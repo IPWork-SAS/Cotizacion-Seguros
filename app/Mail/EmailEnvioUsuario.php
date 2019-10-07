@@ -35,6 +35,6 @@ class EmailEnvioUsuario extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.email_usuario',compact('nombres','apellidos','codigo'));
+        return $this->view('mails.email_usuario',compact('nombres','apellidos','codigo'))->greeting('toncourtier.com');
     }
 }

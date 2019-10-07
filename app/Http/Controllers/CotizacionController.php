@@ -13,8 +13,8 @@ class CotizacionController extends Controller
 {
     public function index()
     {
-        $costos=DB::table('valor_seguros')->select('valor_seguro')->get();
-        return view('formularios.cotizacion',compact('costos'));
+        $valores_seguros=DB::table('valor_seguros')->select('valor_seguro')->get();
+        return view('formularios.cotizacion',compact('valores_seguros'));
     }
     public function informacionCliente(Request $request)
     {

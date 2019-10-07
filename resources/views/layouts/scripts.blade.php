@@ -2,11 +2,9 @@
 <script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-
+<script type="text/javascript" src="{{url(mix('/js/scriptspropios.js'))}}"></script>
 <script src="https://connect.facebook.net/en_US/sdk.js?hash=97dbadbbddf40517c95a6d1c35cece08" async="" crossorigin="anonymous"></script>
 <script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script>trustspot_key='e08aed8473f76fa0c6eb007a4a8ec7d02eca91676562d41a466f1dce8634346b60ef1e45d0dd8ffdbff9bbfaddbf74e9042f6b0fdffc044fd6db0abbbda829d0';</script>
 <script src="https://trustspot.io/assets/js/trustspot_product_reviews.js"></script>
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
@@ -42,4 +40,4 @@
 <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async=""></script>
 <script type="text/javascript" src="https://toncourtier.com/wp-content/themes/toncourtier/dist/scripts/main_4d46a85a.js"></script>
 <script type="text/javascript" src="https://toncourtier.com/wp-includes/js/wp-embed.min.js?ver=4.9.11"></script>
-{{-- <script>if (document.location.protocol != "https:") {document.location = document.URL.replace(/^http:/i, "https:");}</script> --}}
+<script>if (document.location.protocol != "https:") {document.location = document.URL.replace(/^http:/i, "https:");}</script>

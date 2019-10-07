@@ -61,9 +61,11 @@
             <label class="desc">
                 Valor a cotizar:
             </label>
-            <select name="valor_seguro" class="field select large" data-wufoo-field="dropdown">
+            <select name="valor_seguro" class="field select large" data-wufoo-field="dropdown" required>
                 <option value="">Seleccione...</option>
-                <option value="1">1</option>
+                @foreach ($valores_seguros as $valor)
+                    <option value="{{$valor->valor_seguro}}">{{$valor->valor_seguro}}</option>    
+                @endforeach
             </select>
         </div>
         <div class="column">
@@ -72,6 +74,13 @@
             </label>
             <input class="field text large" name="edad_cotizante" required="" type="number" minlength="1" min="0" maxlength="255" value="">
         </div>
+    </div>
+    <hr>
+    <div class="row">
+            <h4><b>Afiliados</b></h4>
+        </div>
+    <div style="text-align: center; margin-bottom: 10px;" id="DivSubmit">
+        <button type="button" id="BtnAdd">Añadir</button>
     </div>
     <hr>
     <div style="text-align: center; margin-top: 25px;">
