@@ -19,14 +19,18 @@ class CotizacionController extends Controller
     public function informacionCliente(Request $request)
     {
         session(['request' => $request->toArray()]);
-        return session('request');
-        //first way
+
+        $codigo = hash('crc32', rand());
+         session(['codigo'=>$codigo]);
+        // return session('request');
+
+        //Segunda forma
         /* Mail::to($correo)->send(new EmailEnvioUsuario(
              $nombres,$apellidos,$codigo
          ));*/
 
 
-        //second way
+        //Primera forma
         /* 
         $subject = 'Código de Verificación';
          $body = '';
@@ -38,11 +42,14 @@ class CotizacionController extends Controller
            });
         */
 
+        /* Descomentar para usar el envío de correos 
+
         Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
             session('request')['nombres'],
             session('request')['apellidos'],
             session('request')['codigo']
         ));
+        */
 
 
         if (Mail::failures()) {
@@ -53,9 +60,10 @@ class CotizacionController extends Controller
     }
     public function validacionCliente(Request $request)
     {
+        $consultaAseguradoras=DB::table('aseguradoras')->get();
         $codigo = session('codigo');
         if ($codigo == $request->input('codigo')) {
-            return 'Validación exitosa';
+            return $consultaAseguradoras;
         } else {
             // return view('formularios.cotizacion');
             abort(403);
