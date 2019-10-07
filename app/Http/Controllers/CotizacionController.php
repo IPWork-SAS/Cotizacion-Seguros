@@ -64,13 +64,11 @@ class CotizacionController extends Controller
     public function validacionCliente(Request $request)
     {
         /* session('request');
-        $fecha_inicio = new Carbon(session('request')['fecha_inicio']);
-        $fecha_fin = new Carbon(session('request')['fecha_fin']);
-        $dias = $fecha_inicio->diff($fecha_fin)->days;
         $rangoedad=  DB::table('rango_edades')
             ->select('id_rango_edad')
             ->where('edad_inicial', '<=', session('request')['edad_cotizante'])
             ->where('edad_final', '>=', session('request')['edad_cotizante'])
+            ->where('id_asegu', $consultaCalculos[$i]->id_aserado..)
             ->get();
         return $dias; */
         $codigo = session('codigo');
@@ -82,7 +80,7 @@ class CotizacionController extends Controller
             ->join('planes','planes.id_plan','=','valor_seguros.id_plan')
             ->where('valor_seguros.valor_seguro','=', session('request')['valor_seguro'])
             ->get();
-        
+        return  $consultaCalculos;
         if(count($consultaCalculos) > 0){
             $usuario = new Usuario();
             $usuario->nombres = session('request')['nombres'];
@@ -94,6 +92,10 @@ class CotizacionController extends Controller
             $usuario->edad = session('request')['edad_cotizante'];
             $usuario->ubicacion = "Mi ubicacion actual";
             $usuario->save();
+
+            $fecha_inicio = new Carbon(session('request')['fecha_inicio']);
+            $fecha_fin = new Carbon(session('request')['fecha_fin']);
+            $dias = $fecha_inicio->diff($fecha_fin)->days;
 
             for ($i=0; $i < count($consultaCalculos); $i++) { 
                 
