@@ -18,25 +18,8 @@ class CotizacionController extends Controller
     }
     public function informacionCliente(Request $request)
     {
-        $nombres = $request->input('nombres');
-        $apellidos = $request->input('apellidos');
-        $tipo_documento = $request->input('tipo_documento');
-        $numero_documento = $request->input('numero_documento');
-        $correo = $request->input('correo');
-        $telefono = $request->input('telefono');
-        $codigo = hash('crc32', rand());
-        $empresa = 'iPWork Solutions';
-        session([
-            'codigo' => $codigo,
-            'nombres' => $nombres,
-            'apellidos' => $apellidos,
-            'tipo_documento' => $tipo_documento,
-            'numero_documento' => $numero_documento,
-            'correo' => $correo,
-            'telefono' => $telefono,
-            'empresa' => $empresa
-
-        ]);
+        session(['request' => $request->toArray()]);
+        return session('request');
         //first way
         /* Mail::to($correo)->send(new EmailEnvioUsuario(
              $nombres,$apellidos,$codigo
@@ -55,10 +38,10 @@ class CotizacionController extends Controller
            });
         */
 
-        Mail::to(session('correo'))->send(new CodigoDeVerificacion(
-            session('nombres'),
-            session('apellidos'),
-            session('codigo')
+        Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
+            session('request')['nombres'],
+            session('request')['apellidos'],
+            session('request')['codigo']
         ));
 
 
