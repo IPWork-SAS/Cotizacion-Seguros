@@ -39,7 +39,7 @@
             <label class="desc">
                 # Documento:
             </label>
-            <input class="field text large" name="numero_documento" required="" type="number" minlength="7" maxlength="255" value="">
+            <input class="field text large" name="numero_documento" required="" type="number" minlength="7" min="0" maxlength="255" value="">
         </div>
     </div>
     <div class="row">
