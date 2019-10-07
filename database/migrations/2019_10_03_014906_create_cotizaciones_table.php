@@ -15,6 +15,7 @@ class CreateCotizacionesTable extends Migration
     {
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->bigIncrements('id_cotizacion');
+            $table->string('nombre_cotizante');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->string('valor_dia',100);
@@ -23,12 +24,12 @@ class CreateCotizacionesTable extends Migration
             $table->unsignedBigInteger('id_aseguradora');
             $table->unsignedBigInteger('id_plan');
             $table->unsignedBigInteger('id_rango_edad');
-            $table->unsignedBigInteger('id_valor');
+            $table->unsignedBigInteger('id_valor_seguro');
             $table->foreign('id_usuario')->references('id_usuario')->on('usuarios')->onDelete('cascade');
             $table->foreign('id_aseguradora')->references('id_aseguradora')->on('aseguradoras')->onDelete('cascade');
             $table->foreign('id_plan')->references('id_plan')->on('planes')->onDelete('cascade');
             $table->foreign('id_rango_edad')->references('id_rango_edad')->on('rango_edades')->onDelete('cascade');
-            $table->foreign('id_valor')->references('id_valor')->on('valores')->onDelete('cascade');
+            $table->foreign('id_valor_seguro')->references('id_valor_seguro')->on('valor_seguros')->onDelete('cascade');
             $table->timestamps();
         });
     }
