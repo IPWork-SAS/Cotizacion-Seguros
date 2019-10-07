@@ -21,6 +21,7 @@ class CreateUsuariosTable extends Migration
             $table->string('numero_documento',100);
             $table->string('telefono',100);
             $table->string('correo',100);
+            $table->string('edad',100);
             $table->string('ubicacion',255);
             $table->timestamps();
         });
