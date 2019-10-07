@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailEnvioUsuario extends Mailable
+class CodigoDeVerificacion extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -35,6 +35,12 @@ class EmailEnvioUsuario extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.email_usuario',compact('nombres','apellidos','codigo'))->greeting('toncourtier.com');
+        // return $this->view('mails.email_usuario',compact('nombres','apellidos','codigo'));
+        return $this->from(env('MAIL_USERNAME'), session('empresa'))
+                    ->view('mails.email_usuario')->subject('Codigo de verificación');
+                //     ->attach(public_path('/images').'/logo_ipwork.png', [
+                //         'as' => 'logo_ipwork.png',
+                //         'mime' => 'image/png',
+                // ]);
     }
 }

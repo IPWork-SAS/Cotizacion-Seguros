@@ -11,27 +11,27 @@ class Valor_segurosTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('valor_seguros')->insert([
+        DB::table('valor_seguro')->insert([
             'valor_seguro' => '120000',
             'id_plan' => 1,
             'id_aseguradora' => 1
         ]);
-        DB::table('valor_seguros')->insert([
+        DB::table('valor_seguro')->insert([
             'valor_seguro' => '230000',
             'id_plan' => 1,
             'id_aseguradora' => 1
         ]);
-        DB::table('valor_seguros')->insert([
+        DB::table('valor_seguro')->insert([
             'valor_seguro' => '150000',
             'id_plan' => 2,
             'id_aseguradora' => 2
         ]);
-        DB::table('valor_seguros')->insert([
+        DB::table('valor_seguro')->insert([
             'valor_seguro' => '230000',
             'id_plan' => 2,
             'id_aseguradora' => 2
         ]);
-        DB::table('valor_seguros')->insert([
+        DB::table('valor_seguro')->insert([
             'valor_seguro' => '150000',
             'id_plan' => 3,
             'id_aseguradora' => 3
