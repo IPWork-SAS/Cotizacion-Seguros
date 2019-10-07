@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\EmailEnvioUsuario;
+use App\Mail\CodigoDeVerificacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -13,8 +13,8 @@ class CotizacionController extends Controller
 {
     public function index()
     {
-        $costos=DB::table('valor_seguros')->select('valor_seguro')->get();
-        return view('formularios.cotizacion',compact('costos'));
+        $costos = DB::table('valor_seguros')->select('valor_seguro')->get();
+        return view('formularios.cotizacion', compact('costos'));
     }
     public function informacionCliente(Request $request)
     {
@@ -25,6 +25,7 @@ class CotizacionController extends Controller
         $correo = $request->input('correo');
         $telefono = $request->input('telefono');
         $codigo = hash('crc32', rand());
+        $empresa = 'iPWork Solutions';
         session([
             'codigo' => $codigo,
             'nombres' => $nombres,
@@ -32,18 +33,32 @@ class CotizacionController extends Controller
             'tipo_documento' => $tipo_documento,
             'numero_documento' => $numero_documento,
             'correo' => $correo,
-            'telefono' => $telefono
+            'telefono' => $telefono,
+            'empresa' => $empresa
+
         ]);
-        // $subject = 'Código de Verificación';
-        // $body = '';
-        // Mail::to($user)->send(new MailNotify($user));
-        // Mail::send([], [], function ($message) use($correo,$subject,$body){
-        //     $message->to($correo)
-        //       ->subject($subject)
-        //       ->setBody($body, 'text/html'); // for HTML rich messages
-        //   });
-        Mail::to($correo)->send(new EmailEnvioUsuario(
-            $nombres,$apellidos,$codigo
+        //first way
+        /* Mail::to($correo)->send(new EmailEnvioUsuario(
+             $nombres,$apellidos,$codigo
+         ));*/
+
+
+        //second way
+        /* 
+        $subject = 'Código de Verificación';
+         $body = '';
+         Mail::to($user)->send(new MailNotify($user));
+         Mail::send([], [], function ($message) use($correo,$subject,$body){
+             $message->to($correo)
+             ->subject($subject)
+              ->setBody($body, 'text/html'); // for HTML rich messages
+           });
+        */
+
+        Mail::to(session('correo'))->send(new CodigoDeVerificacion(
+            session('nombres'),
+            session('apellidos'),
+            session('codigo')
         ));
 
 
