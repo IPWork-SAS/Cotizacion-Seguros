@@ -39,7 +39,7 @@
             <label class="desc">
                 # Documento:
             </label>
-            <input class="field text large" name="numero_documento" required="" type="number" minlength="7" maxlength="255" value="">
+            <input class="field text large" name="numero_documento" required="" type="number" minlength="7" min="0" maxlength="255" value="">
         </div>
     </div>
     <div class="row">
@@ -76,6 +76,20 @@
         </div>
     </div>
     <hr>
+    <div class="row">
+            <div class="column">
+                <label class="desc">
+                    Fecha Inicio:
+                </label>
+                <input class="field text large" name="fecha_inicio" required="" type="date" value="">
+            </div>
+            <div class="column">
+                <label class="desc">
+                    Fecha Fin:
+                </label>
+                <input class="field text large" name="fecha_fin" required="" type="date" value="">
+            </div>
+        </div>
     <div class="row">
             <h4><b>Afiliados</b></h4>
         </div>
