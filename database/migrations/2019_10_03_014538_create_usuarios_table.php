@@ -22,7 +22,8 @@ class CreateUsuariosTable extends Migration
             $table->string('telefono',100);
             $table->string('correo',100);
             $table->string('edad',100);
-            $table->string('ubicacion',255);
+            $table->string('ubicacion_longitud',255);
+            $table->string('ubicacion_latitud',255);
             $table->timestamps();
         });
     }

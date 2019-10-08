@@ -99,6 +99,19 @@ $(document).ready(function () {
     $("#DivSubmit").before("\n        <div class=\"row\" id=\"afiliado" + contador + "\" style=\"margin-bottom: 10px;\">\n            <div class=\"column\" style=\"width: 47%;\">\n                <label class=\"desc\">\n                    Nombre:\n                </label>\n                <input class=\"field text large\" name=\"nombre_afiliado[]\" required=\"\" type=\"text\" minlength=\"3\"  maxlength=\"255\" value=\"\">\n            </div>\n            <div class=\"column\" style=\"width: 47%;\">\n                <label class=\"desc\">\n                    Edad:\n                </label>\n                <input class=\"field text large\" name=\"edad_afiliado[]\" required=\"\" type=\"number\" minlength=\"1\" min=\"0\" maxlength=\"255\" value=\"\">\n            </div>\n            <div class=\"column\" style=\"width: 4%;padding: 2%;margin: 1%;cursor: pointer;\">\n                <span onclick=\"$('#afiliado" + contador + "').remove();\" title=\"Eliminar Afiliado\"><i class=\"fas fa-trash\"></i></span>\n            </div>\n        </div>\n        ");
     contador += 1;
   });
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (objPosition) {
+      $("#geolocalizacionlatitud").val(objPosition.coords.longitude);
+      $("#geolocalizacionlongitud").val(objPosition.coords.latitude);
+    }, function (objPositionError) {
+      $("#geolocalizacionlatitud").val('No permitio ubicacion');
+      $("#geolocalizacionlongitud").val('No permitio ubicacion');
+    }, {});
+  } else {
+    $("#geolocalizacionlatitud").val('No permitio ubicacion');
+    $("#geolocalizacionlongitud").val('No permitio ubicacion');
+  }
 });
 
 /***/ }),

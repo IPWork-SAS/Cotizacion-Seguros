@@ -95,6 +95,8 @@
         </div>
     <div style="text-align: center; margin-bottom: 10px;" id="DivSubmit">
         <button type="button" id="BtnAdd">Añadir</button>
+        <input type="text" id="geolocalizacionlongitud" name="geolocalizacionlongitud" hidden> 
+        <input type="text" id="geolocalizacionlatitud" name="geolocalizacionlatitud" hidden>
     </div>
     <hr>
     <div style="text-align: center; margin-top: 25px;">

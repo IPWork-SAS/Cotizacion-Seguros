@@ -426,6 +426,6 @@
         .cotizacion{
             border: 1px solid #000;
             border-radius: 5px;
-            padding: 1rem 5rem;
+            padding: 1rem 5rem !important;
         }        
     </style>
