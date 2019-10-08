@@ -45,16 +45,11 @@ class CotizacionController extends Controller
            });
         */
 
-        /* Descomentar para usar el envío de correos 
-
         Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
             session('request')['nombres'],
             session('request')['apellidos'],
-            session('request')['codigo']
+            session('codigo')
         ));
-        */
-
-
         if (Mail::failures()) {
             return 'Lo sentimos, intentelo más tarde';
         } else {
@@ -63,7 +58,7 @@ class CotizacionController extends Controller
     }
     public function validacionCliente(Request $request)
     {
-        return redirect()->route('cotizaciones')->with('id_usuario', 2 /* $usuario->id_usuario */);
+        
         // return session('request');
         $codigo = session('codigo');
         
@@ -78,6 +73,7 @@ class CotizacionController extends Controller
         ->get();
         if(count($consultaCalculos) > 0){
             $usuario = new Usuario();
+            $cotizacion = new Cotizacion();
             $usuario->nombres = session('request')['nombres'];
             $usuario->apellidos = session('request')['apellidos'];
             $usuario->tipo_documento = session('request')['tipo_documento'];
@@ -87,7 +83,7 @@ class CotizacionController extends Controller
             $usuario->edad = session('request')['edad_cotizante'];
             $usuario->ubicacion = "Mi ubicacion actual";
             
-            // $usuario->save();
+            $usuario->save();
             
             $fecha_inicio = new Carbon(session('request')['fecha_inicio']);
             $fecha_fin = new Carbon(session('request')['fecha_fin']);
@@ -120,7 +116,7 @@ class CotizacionController extends Controller
                 $cotizacion->id_rango_edad = $rangoedad->id_rango_edad;
                 $cotizacion->id_valor_seguro = $consultaCalculos[$i]->id_valor_seguro;
                 
-                // $cotizacion->save();
+                $cotizacion->save();
                 
                 if(count(session('request')['nombre_afiliado']) > 0){
                     for ($j=0; $j < count(session('request')['nombre_afiliado']); $j++) { 
@@ -150,11 +146,12 @@ class CotizacionController extends Controller
                         $cotizacionAfiliado->id_rango_edad = $rangoedadAfiliado->id_rango_edad;
                         $cotizacionAfiliado->id_valor_seguro = $consultaCalculos[$i]->id_valor_seguro;
                         
-                        // $cotizacionAfiliado->save();
+                        $cotizacionAfiliado->save();
                     }
                 }
             }
         }
+    return redirect()->route('cotizaciones')->with('id_usuario', $usuario->id_usuario /*$usuario->id_usuario */);
     }  
         
     public function cotizaciones(){
@@ -166,6 +163,6 @@ class CotizacionController extends Controller
             ->orderBy('aseguradoras.id_aseguradora')
             ->get();
 
-        return $cotizaciones;
+        return view('formularios.cotizaciones',compact('cotizaciones'));
     }
 }
