@@ -408,24 +408,4 @@
             width: 100%
         }
     </style>
-    <style>
-        .column{
-            float: left;
-            width: 50%;
-            padding: 10px;
-        }
-        .column>label{
-            width: 100% !important;
-            text-align: left;
-        }
-        .row::after{
-            content: "";
-            display: table;
-            clear: both;
-        }
-        .cotizacion{
-            border: 1px solid #000;
-            border-radius: 5px;
-            padding: 1rem 5rem !important;
-        }        
-    </style>
+    <link href="{{url(mix('/css/estilospropios.css'))}}" rel="stylesheet">
