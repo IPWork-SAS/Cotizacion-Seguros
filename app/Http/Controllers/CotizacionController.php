@@ -25,7 +25,6 @@ class CotizacionController extends Controller
 
         $codigo = hash('crc32', rand());
          session(['codigo'=>$codigo]);
-        // return session('request');
 
         //Segunda forma
         /* Mail::to($correo)->send(new EmailEnvioUsuario(
@@ -79,7 +78,8 @@ class CotizacionController extends Controller
             $usuario->telefono = session('request')['telefono'];
             $usuario->correo = session('request')['correo'];
             $usuario->edad = session('request')['edad_cotizante'];
-            $usuario->ubicacion = "Mi ubicacion actual";
+            $usuario->ubicacion_longitud = session('request')['geolocalizacionlongitud'];
+            $usuario->ubicacion_latitud = session('request')['geolocalizacionlatitud'];
             
             $usuario->save();
             

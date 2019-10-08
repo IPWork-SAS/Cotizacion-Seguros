@@ -13,7 +13,8 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .js('resources/js/scriptspropios.js', 'public/js');
+    .js('resources/js/scriptspropios.js', 'public/js')
+    .styles(['resources/css/estilospropios.css'], 'public/css/estilospropios.css');
 
 if (mix.config.inProduction) {
     mix.version();
