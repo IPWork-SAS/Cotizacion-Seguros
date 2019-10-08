@@ -79,6 +79,7 @@ class CotizacionController extends Controller
         // return $consultaCalculos;
         if(count($consultaCalculos) > 0){
             $usuario = new Usuario();
+            $cotizacion = new Cotizacion();
             $usuario->nombres = session('request')['nombres'];
             $usuario->apellidos = session('request')['apellidos'];
             $usuario->tipo_documento = session('request')['tipo_documento'];
@@ -96,6 +97,8 @@ class CotizacionController extends Controller
 
             for ($i=0; $i < count($consultaCalculos); $i++) { 
 
+            $cotizacion = new Cotizacion();
+
             $rangoedad=  DB::table('rango_edades')
             ->select('id_rango_edad')
             ->where('edad_inicial', '<=', session('request')['edad_cotizante'])
@@ -112,10 +115,9 @@ class CotizacionController extends Controller
             // $consultaCalculos[$i]->id_aseguradora
             //  echo $valorUnico->valor;
 
-             $cotizacion = new Cotizacion();
+             
              $cotizacion->nombre_cotizante = session('request')['nombres'];
              $cotizacion->fecha_inicio = $fecha_inicio;
-             $cotizacion->fecha_fin = $fecha_fin;
              $cotizacion->fecha_fin = $fecha_fin;
              $cotizacion->valor_dia = $valorUnico->valor;
              $cotizacion->valor_total = $valorUnico->valor*$dias;
