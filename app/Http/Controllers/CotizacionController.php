@@ -126,6 +126,8 @@ class CotizacionController extends Controller
              $cotizacion->id_valor_seguro = $consultaCalculos[$i]->id_valor_seguro;
 
              $cotizacion->save();
+
+            
                 /*  $cotizacion = "insersion de la cotización";
                 if(count(session('request')['nombre_afiliado']) > 0){
                     for ($i=0; $i < count(session('request')['nombre_afiliado']); $i++) { 
@@ -133,6 +135,7 @@ class CotizacionController extends Controller
                     }
                 } */
             }
+            exit;
         }
     }  
 }
