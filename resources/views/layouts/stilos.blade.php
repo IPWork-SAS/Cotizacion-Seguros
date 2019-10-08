@@ -423,9 +423,9 @@
             display: table;
             clear: both;
         }
-        form.cotizacion{
+        .cotizacion{
             border: 1px solid #000;
             border-radius: 5px;
             padding: 1rem 5rem;
-        }
+        }        
     </style>

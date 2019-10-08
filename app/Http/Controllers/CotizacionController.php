@@ -45,11 +45,11 @@ class CotizacionController extends Controller
            });
         */
 
-        Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
+        /* Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
             session('request')['nombres'],
             session('request')['apellidos'],
             session('codigo')
-        ));
+        )); */
         if (Mail::failures()) {
             return 'Lo sentimos, intentelo más tarde';
         } else {
@@ -58,8 +58,6 @@ class CotizacionController extends Controller
     }
     public function validacionCliente(Request $request)
     {
-        
-        // return session('request');
         $codigo = session('codigo');
         
         if($codigo !== $request->input('codigo')){
@@ -85,6 +83,8 @@ class CotizacionController extends Controller
             
             $usuario->save();
             
+            session(['id_usuario' => $usuario->id_usuario]);
+
             $fecha_inicio = new Carbon(session('request')['fecha_inicio']);
             $fecha_fin = new Carbon(session('request')['fecha_fin']);
             $dias = $fecha_inicio->diff($fecha_fin)->days;
@@ -92,11 +92,11 @@ class CotizacionController extends Controller
             for ($i=0; $i < count($consultaCalculos); $i++) { 
                 
                 $rangoedad=  DB::table('rango_edades')
-                    ->select('id_rango_edad')
-                    ->where('edad_inicial', '<=', session('request')['edad_cotizante'])
-                    ->where('edad_final', '>=', session('request')['edad_cotizante'])
-                    ->where('id_aseguradora', $consultaCalculos[$i]->id_aseguradora)
-                    ->first();
+                ->select('id_rango_edad')
+                ->where('edad_inicial', '<=', session('request')['edad_cotizante'])
+                ->where('edad_final', '>=', session('request')['edad_cotizante'])
+                ->where('id_aseguradora', $consultaCalculos[$i]->id_aseguradora)
+                ->first();
                 
                 $valorUnico=  DB::table('valores')
                     ->select('valor')
@@ -118,7 +118,7 @@ class CotizacionController extends Controller
                 
                 $cotizacion->save();
                 
-                if(count(session('request')['nombre_afiliado']) > 0){
+                if(isset(session('request')['nombre_afiliado'])){
                     for ($j=0; $j < count(session('request')['nombre_afiliado']); $j++) { 
                         
                         $rangoedadAfiliado=  DB::table('rango_edades')
@@ -151,7 +151,7 @@ class CotizacionController extends Controller
                 }
             }
         }
-    return redirect()->route('cotizaciones')->with('id_usuario', $usuario->id_usuario /*$usuario->id_usuario */);
+        return redirect()->route('cotizaciones');
     }  
         
     public function cotizaciones(){
@@ -162,7 +162,20 @@ class CotizacionController extends Controller
             ->where('cotizaciones.id_usuario', session('id_usuario'))
             ->orderBy('aseguradoras.id_aseguradora')
             ->get();
-
-        return view('formularios.cotizaciones',compact('cotizaciones'));
+        $planes_aseguradoras = [];
+        $planes_aseguradoras['Aseguradoras'][0] = '';
+        $planes_aseguradoras['Planes'][0] = '';
+        foreach($cotizaciones as $cotizacion){
+            if($cotizacion->nombre_aseguradora <> $planes_aseguradoras['Aseguradoras'][count($planes_aseguradoras['Aseguradoras'])-1]){
+                $planes_aseguradoras['Aseguradoras'][count($planes_aseguradoras['Aseguradoras'])] = $cotizacion->nombre_aseguradora;
+            }
+            if($cotizacion->nombre_plan <> $planes_aseguradoras['Planes'][count($planes_aseguradoras['Planes'])-1]){
+                $planes_aseguradoras['Planes'][count($planes_aseguradoras['Planes'])] = $cotizacion->nombre_plan;
+            }
+        }
+        unset($planes_aseguradoras['Aseguradoras'][0]);
+        unset($planes_aseguradoras['Planes'][0]);
+        $valor_total = 0;
+        return view('formularios.cotizaciones',compact('cotizaciones','planes_aseguradoras','valor_total'));
     }
 }
