@@ -21,7 +21,7 @@ Route::get('laravel-send-email', 'EmailController@sendEMailAdmin');
 Route::get('/cotizacion', 'CotizacionController@index');
 Route::post('/cotizacionInfo', 'CotizacionController@informacionCliente');//envío correo
 Route::post('/cotizacionvalidar', 'CotizacionController@validacionCliente');//validación
-
+Route::get('/cotizaciones', 'CotizacionController@cotizaciones')->name('cotizaciones');
 Route::get('testTablas', function () {
     $test = Usuario::where('id_usuario', 1)->first();
     dd($test);
