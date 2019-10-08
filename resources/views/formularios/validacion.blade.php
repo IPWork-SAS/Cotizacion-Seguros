@@ -1,5 +1,4 @@
 <div>
-    {{$codigo}}
     <form action="/cotizacionvalidar" method="POST">
         @csrf
         <label for="codigo"></label>

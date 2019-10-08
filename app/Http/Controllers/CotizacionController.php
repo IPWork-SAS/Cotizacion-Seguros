@@ -45,16 +45,11 @@ class CotizacionController extends Controller
            });
         */
 
-        /* Descomentar para usar el envío de correos 
-
         Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
             session('request')['nombres'],
             session('request')['apellidos'],
-            session('request')['codigo']
+            session('codigo')
         ));
-        */
-
-
         if (Mail::failures()) {
             return 'Lo sentimos, intentelo más tarde';
         } else {
@@ -63,20 +58,19 @@ class CotizacionController extends Controller
     }
     public function validacionCliente(Request $request)
     {
-         session('request');
         
+        // return session('request');
         $codigo = session('codigo');
-
-           if($codigo !== $request->input('codigo')){
-               abort(403);
-            }
-            $consultaCalculos= Db::table('valor_seguros')
-            ->select('aseguradoras.id_aseguradora', 'aseguradoras.nombre_aseguradora', 'planes.id_plan','planes.nombre_plan','valor_seguros.id_valor_seguro')
-            ->join('aseguradoras','valor_seguros.id_aseguradora','=','aseguradoras.id_aseguradora')
-            ->join('planes','planes.id_plan','=','valor_seguros.id_plan')
-            ->where('valor_seguros.valor_seguro','=', session('request')['valor_seguro'])
-            ->get();
-        // return $consultaCalculos;
+        
+        if($codigo !== $request->input('codigo')){
+            abort(403);
+        }
+        $consultaCalculos= Db::table('valor_seguros')
+        ->select('aseguradoras.id_aseguradora', 'aseguradoras.nombre_aseguradora', 'planes.id_plan','planes.nombre_plan','valor_seguros.id_valor_seguro')
+        ->join('aseguradoras','valor_seguros.id_aseguradora','=','aseguradoras.id_aseguradora')
+        ->join('planes','planes.id_plan','=','valor_seguros.id_plan')
+        ->where('valor_seguros.valor_seguro','=', session('request')['valor_seguro'])
+        ->get();
         if(count($consultaCalculos) > 0){
             $usuario = new Usuario();
             $cotizacion = new Cotizacion();
@@ -88,56 +82,87 @@ class CotizacionController extends Controller
             $usuario->correo = session('request')['correo'];
             $usuario->edad = session('request')['edad_cotizante'];
             $usuario->ubicacion = "Mi ubicacion actual";
-
+            
             $usuario->save();
-
+            
             $fecha_inicio = new Carbon(session('request')['fecha_inicio']);
             $fecha_fin = new Carbon(session('request')['fecha_fin']);
             $dias = $fecha_inicio->diff($fecha_fin)->days;
-
-            for ($i=0; $i < count($consultaCalculos); $i++) { 
-
-            $cotizacion = new Cotizacion();
-
-            $rangoedad=  DB::table('rango_edades')
-            ->select('id_rango_edad')
-            ->where('edad_inicial', '<=', session('request')['edad_cotizante'])
-            ->where('edad_final', '>=', session('request')['edad_cotizante'])
-            ->where('id_aseguradora', $consultaCalculos[$i]->id_aseguradora)
-            ->first();
-
-            $valorUnico=  DB::table('valores')
-            ->select('valor')
-            ->where('id_rango_edad', $rangoedad->id_rango_edad)
-            ->where('id_valor_seguro', $consultaCalculos[$i]->id_valor_seguro)
-            ->first();
-            // $rangoedad->id_rango_edad
-            // $consultaCalculos[$i]->id_aseguradora
-            //  echo $valorUnico->valor;
-
-             
-             $cotizacion->nombre_cotizante = session('request')['nombres'];
-             $cotizacion->fecha_inicio = $fecha_inicio;
-             $cotizacion->fecha_fin = $fecha_fin;
-             $cotizacion->valor_dia = $valorUnico->valor;
-             $cotizacion->valor_total = $valorUnico->valor*$dias;
-             $cotizacion->id_usuario =$usuario->id_usuario;
-             $cotizacion->id_aseguradora = $consultaCalculos[$i]->id_aseguradora;
-             $cotizacion->id_plan = $consultaCalculos[$i]->id_plan;
-             $cotizacion->id_rango_edad = $rangoedad->id_rango_edad;
-             $cotizacion->id_valor_seguro = $consultaCalculos[$i]->id_valor_seguro;
-
-             $cotizacion->save();
-
             
-                /*  $cotizacion = "insersion de la cotización";
+            for ($i=0; $i < count($consultaCalculos); $i++) { 
+                
+                $rangoedad=  DB::table('rango_edades')
+                    ->select('id_rango_edad')
+                    ->where('edad_inicial', '<=', session('request')['edad_cotizante'])
+                    ->where('edad_final', '>=', session('request')['edad_cotizante'])
+                    ->where('id_aseguradora', $consultaCalculos[$i]->id_aseguradora)
+                    ->first();
+                
+                $valorUnico=  DB::table('valores')
+                    ->select('valor')
+                    ->where('id_rango_edad', $rangoedad->id_rango_edad)
+                    ->where('id_valor_seguro', $consultaCalculos[$i]->id_valor_seguro)
+                    ->first();
+                
+                $cotizacion = new Cotizacion();
+                $cotizacion->nombre_cotizante = session('request')['nombres'];
+                $cotizacion->fecha_inicio = $fecha_inicio;
+                $cotizacion->fecha_fin = $fecha_fin;
+                $cotizacion->valor_dia = $valorUnico->valor;
+                $cotizacion->valor_total = $valorUnico->valor*$dias;
+                $cotizacion->id_usuario = $usuario->id_usuario;
+                $cotizacion->id_aseguradora = $consultaCalculos[$i]->id_aseguradora;
+                $cotizacion->id_plan = $consultaCalculos[$i]->id_plan;
+                $cotizacion->id_rango_edad = $rangoedad->id_rango_edad;
+                $cotizacion->id_valor_seguro = $consultaCalculos[$i]->id_valor_seguro;
+                
+                $cotizacion->save();
+                
                 if(count(session('request')['nombre_afiliado']) > 0){
-                    for ($i=0; $i < count(session('request')['nombre_afiliado']); $i++) { 
-                        $cotizacionAfiliado= "insersion de los afiliados a su cotizacion";
+                    for ($j=0; $j < count(session('request')['nombre_afiliado']); $j++) { 
+                        
+                        $rangoedadAfiliado=  DB::table('rango_edades')
+                            ->select('id_rango_edad')
+                            ->where('edad_inicial', '<=', session('request')['edad_afiliado'][$j])
+                            ->where('edad_final', '>=', session('request')['edad_afiliado'][$j])
+                            ->where('id_aseguradora', $consultaCalculos[$i]->id_aseguradora)
+                            ->first();
+                            
+                        $valorUnicoAfiliado=  DB::table('valores')
+                            ->select('valor')
+                            ->where('id_rango_edad', $rangoedadAfiliado->id_rango_edad)
+                            ->where('id_valor_seguro', $consultaCalculos[$i]->id_valor_seguro)
+                            ->first();
+                        
+                        $cotizacionAfiliado = new Cotizacion();
+                        $cotizacionAfiliado->nombre_cotizante = session('request')['nombre_afiliado'][$j];
+                        $cotizacionAfiliado->fecha_inicio = $fecha_inicio;
+                        $cotizacionAfiliado->fecha_fin = $fecha_fin;
+                        $cotizacionAfiliado->valor_dia = $valorUnicoAfiliado->valor;
+                        $cotizacionAfiliado->valor_total = $valorUnicoAfiliado->valor*$dias;
+                        $cotizacionAfiliado->id_usuario = $usuario->id_usuario;
+                        $cotizacionAfiliado->id_aseguradora = $consultaCalculos[$i]->id_aseguradora;
+                        $cotizacionAfiliado->id_plan = $consultaCalculos[$i]->id_plan;
+                        $cotizacionAfiliado->id_rango_edad = $rangoedadAfiliado->id_rango_edad;
+                        $cotizacionAfiliado->id_valor_seguro = $consultaCalculos[$i]->id_valor_seguro;
+                        
+                        $cotizacionAfiliado->save();
                     }
-                } */
+                }
             }
-            exit;
         }
+    return redirect()->route('cotizaciones')->with('id_usuario', $usuario->id_usuario /*$usuario->id_usuario */);
     }  
+        
+    public function cotizaciones(){
+        $cotizaciones = DB::table('cotizaciones')
+            ->join('aseguradoras', 'cotizaciones.id_aseguradora', '=', 'aseguradoras.id_aseguradora')
+            ->join('planes', 'cotizaciones.id_plan', '=', 'planes.id_plan')
+            ->select('cotizaciones.nombre_cotizante', 'cotizaciones.fecha_inicio', 'cotizaciones.fecha_fin', 'cotizaciones.valor_dia', 'cotizaciones.valor_total', 'aseguradoras.nombre_aseguradora', 'planes.nombre_plan')
+            ->where('cotizaciones.id_usuario', session('id_usuario'))
+            ->orderBy('aseguradoras.id_aseguradora')
+            ->get();
+
+        return view('formularios.cotizaciones',compact('cotizaciones'));
+    }
 }
