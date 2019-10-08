@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="#3b7e5b">
+    
     <title>Cotizaciones</title>
     @include('layouts.stilos')
     @include('layouts.scripts')
@@ -258,9 +259,9 @@
         </div>
         @include('layouts.footer')
     </div>
-    <div id="mfesecure-ts-image" title="McAfee SECURE"
+    <!-- <div id="mfesecure-ts-image" title="McAfee SECURE"
         style="margin: 0px; padding: 0px; border: 0px none; background: rgb(255, 255, 255) url(&quot;https://cdn.ywxi.net/meter/toncourtier.com/105.png?ts=undefined&quot;) no-repeat scroll center center / 92px 38px; max-width: none; max-height: none; position: fixed; height: 38px !important; width: 92px !important; overflow: hidden !important; bottom: 0px !important; right: 0px !important; z-index: 1000003 !important; cursor: pointer !important; box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px 0px; border-top-left-radius: 2px;">
-    </div>
+    </div> -->
     <div id="fb-root" class=" fb_reset">
         <div style="position: absolute; top: -10000px; width: 0px; height: 0px;">
             <div><iframe name="fb_xdm_frame_https" id="fb_xdm_frame_https" aria-hidden="true"
