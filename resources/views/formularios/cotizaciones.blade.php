@@ -15,6 +15,23 @@
                     <span><b>{{$planes_aseguradoras['Planes'][$i]}}</b></span>
                 </div>
             </div>
+            <div class="row">
+                    <div class="column" style="width: 20%;">
+                        <span><b>Nombres</b></span>
+                    </div>
+                    <div class="column" style="width: 20%;">
+                        <span><b>Fecha Inicio</b></span>
+                    </div>
+                    <div class="column" style="width: 20%;">
+                        <span><b>Fecha Fin</b></span>
+                    </div>
+                    <div class="column" style="width: 20%;">
+                        <span><b>Valor/día</b></span>
+                    </div>
+                    <div class="column" style="width: 20%;">
+                        <span><b>Valor total</b></span>
+                    </div>
+            </div>
             @foreach($cotizaciones as $cotizacion)
                     @if($cotizacion->nombre_aseguradora === $planes_aseguradoras['Aseguradoras'][$i])
                         @php
@@ -41,7 +58,7 @@
                 @endforeach
                 <div class="row">
                     <div class="column" style="text-align: right; width: 70%;">
-                        <span><b>Valor total:</b></span>
+                        <span><b>Valor general total:</b></span>
                     </div>
                     <div class="column" style="text-align: right; width: 30%;">
                     <span><b>$ {{$valor_total}}</b></span>

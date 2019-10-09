@@ -22,25 +22,30 @@ $(document).ready(function () {
         `);
         contador += 1;
     });
-    var geolocalizacion = localStorage.getItem('geolocation');
+    var geolocalizacion = localStorage.getItem('geolocalizacionlatitud');
     if(!geolocalizacion){
-        localStorage.setItem('geolocation',1);
-        if (navigator.geolocation) {
+      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (objPosition) {
-            $("#geolocalizacionlatitud").val(objPosition.coords.longitude);
-            $("#geolocalizacionlongitud").val(objPosition.coords.latitude);
+          localStorage.setItem('geolocalizacionlatitud', objPosition.coords.longitude);
+          localStorage.setItem('geolocalizacionlongitud', objPosition.coords.latitude);
+          $("#geolocalizacionlatitud").val(localStorage.getItem('geolocalizacionlatitud'));
+          $("#geolocalizacionlongitud").val(localStorage.getItem('geolocalizacionlongitud'));
         }, function (objPositionError) {
-            $("#geolocalizacionlatitud").val('No permitio ubicacion');
-            $("#geolocalizacionlongitud").val('No permitio ubicacion');
+          localStorage.setItem('geolocalizacionlatitud','No permitio ubicacion');
+          localStorage.setItem('geolocalizacionlongitud','No permitio ubicacion');
+          $("#geolocalizacionlatitud").val(localStorage.getItem('geolocalizacionlatitud'));
+          $("#geolocalizacionlongitud").val(localStorage.getItem('geolocalizacionlongitud'));
         }, {});
-        } 
-        else {
-        $("#geolocalizacionlatitud").val('No permitio ubicacion');
-        $("#geolocalizacionlongitud").val('No permitio ubicacion');
-        }
+      } 
+      else {
+        localStorage.setItem('geolocalizacionlatitud','No permitio ubicacion');
+        localStorage.setItem('geolocalizacionlongitud','No permitio ubicacion');
+        $("#geolocalizacionlatitud").val(localStorage.getItem('geolocalizacionlatitud'));
+        $("#geolocalizacionlongitud").val(localStorage.getItem('geolocalizacionlongitud'));
+      }
     }
     else{
-        $("#geolocalizacionlatitud").val('No permitio ubicacion');
-        $("#geolocalizacionlongitud").val('No permitio ubicacion');
+      $("#geolocalizacionlatitud").val(localStorage.getItem('geolocalizacionlatitud'));
+      $("#geolocalizacionlongitud").val(localStorage.getItem('geolocalizacionlongitud'));
     }
 });
