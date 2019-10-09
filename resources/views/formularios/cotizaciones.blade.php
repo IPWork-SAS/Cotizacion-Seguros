@@ -4,7 +4,7 @@
 @endsection
 @section('contenido')
     @for ($i = 1; $i <= count($planes_aseguradoras['Aseguradoras']); $i++)
-        <div class="cotizacion">
+        <div class="cotizacion contenedor">
             <div class="row">
                 <div class="column" style="width: 100%">
                     <span><b>{{$planes_aseguradoras['Aseguradoras'][$i]}}</b></span>
@@ -60,11 +60,10 @@
                     <div class="column" style="text-align: right; width: 70%;">
                         <span><b>Valor general total:</b></span>
                     </div>
-                    <div class="column" style="text-align: right; width: 30%;">
+                    <div class="column" style="text-align: right; width: 28%;">
                     <span><b>$ {{$valor_total}}</b></span>
                     </div>
                 </div>
-        </div>
         <button class="btnComprar">Comprar</button>
     </div>
     <br>
