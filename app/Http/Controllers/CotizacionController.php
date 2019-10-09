@@ -79,7 +79,7 @@ class CotizacionController extends Controller
             $usuario->apellidos = session('request')['apellidos'];
             $usuario->tipo_documento = session('request')['tipo_documento'];
             $usuario->numero_documento = session('request')['numero_documento'];
-            $usuario->telefono = session('request')['telefonoidentificativo'].session('request')['telefono'];
+            $usuario->telefono = '+'.session('request')['telefonoidentificativo'].session('request')['telefono'];
             $usuario->correo = session('request')['correo'];
             $usuario->edad = session('request')['edad_cotizante'];
             $usuario->ubicacion_longitud = session('request')['geolocalizacionlongitud'];
