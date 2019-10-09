@@ -16,4 +16,23 @@
     border: 1px solid #000;
     border-radius: 5px;
     padding: 1rem 5rem !important;
-}     
+    position: relative;
+}
+
+.btnComprar{
+    position: absolute;
+    right: 12px;
+    height: 30px;
+    top: 50%;
+}
+.contenedor{
+    padding: 1rem 5.5rem 1rem 1rem !important;
+    width:110%;
+}
+ 
+/* .btnComprar{
+    position: absolute;
+    right: 12px;
+    height: 30px;
+    top: 83%;
+} */

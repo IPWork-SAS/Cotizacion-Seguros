@@ -81,13 +81,13 @@
                 <label class="desc">
                     Fecha Inicio:
                 </label>
-                <input class="field text large" name="fecha_inicio" required="" type="date" value="">
+                <input class="field text large" name="fecha_inicio" min="{{$fecha_min}}" required="" type="date" value="">
             </div>
             <div class="column">
                 <label class="desc">
                     Fecha Fin:
                 </label>
-                <input class="field text large" name="fecha_fin" required="" type="date" value="">
+                <input class="field text large" name="fecha_fin" min="{{$fecha_max}}" required="" type="date" value="">
             </div>
         </div>
     <div class="row">

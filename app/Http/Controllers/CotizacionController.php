@@ -17,7 +17,11 @@ class CotizacionController extends Controller
     public function index()
     {
         $valores_seguros=DB::table('valor_seguros')->select('valor_seguro')->get();
-        return view('formularios.cotizacion',compact('valores_seguros'));
+        
+        $fecha_min= date('Y-m-d');
+        $fecha_max= date('Y-m-d');
+        $fecha_max++;
+        return view('formularios.cotizacion',compact('valores_seguros','fecha_min','fecha_max'));
     }
     public function informacionCliente(Request $request)
     {
@@ -176,6 +180,8 @@ class CotizacionController extends Controller
         unset($planes_aseguradoras['Aseguradoras'][0]);
         unset($planes_aseguradoras['Planes'][0]);
         $valor_total = 0;
+      
+
         return view('formularios.cotizaciones',compact('cotizaciones','planes_aseguradoras','valor_total'));
     }
 }
