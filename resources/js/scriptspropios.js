@@ -22,22 +22,25 @@ $(document).ready(function () {
         `);
         contador += 1;
     });
-    if (navigator.geolocation)
-	{
-		navigator.geolocation.getCurrentPosition(function(objPosition)
-		{
+    var geolocalizacion = localStorage.getItem('geolocation');
+    if(!geolocalizacion){
+        localStorage.setItem('geolocation',1);
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (objPosition) {
             $("#geolocalizacionlatitud").val(objPosition.coords.longitude);
             $("#geolocalizacionlongitud").val(objPosition.coords.latitude);
-
-		}, function(objPositionError)
-		{
+        }, function (objPositionError) {
             $("#geolocalizacionlatitud").val('No permitio ubicacion');
             $("#geolocalizacionlongitud").val('No permitio ubicacion');
-		}, {});
-	}
-	else
-	{
+        }, {});
+        } 
+        else {
         $("#geolocalizacionlatitud").val('No permitio ubicacion');
         $("#geolocalizacionlongitud").val('No permitio ubicacion');
-	}
+        }
+    }
+    else{
+        $("#geolocalizacionlatitud").val('No permitio ubicacion');
+        $("#geolocalizacionlongitud").val('No permitio ubicacion');
+    }
 });
