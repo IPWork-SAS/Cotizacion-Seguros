@@ -53,7 +53,8 @@
             <label class="desc">
                 Telefono:
             </label>
-            <input class="field text large" name="telefono" required="" type="number" minlength="10" maxlength="255" value="">
+            <input type="text" class="field text" id="telefonoidentificativo" size="3" name="telefonoidentificativo" required minlength="3" maxlength="5" value="+">
+            <input class="field text medium" name="telefono" required="" style="width: 80%;" type="number" minlength="10" maxlength="255" value="">
         </div>
     </div>
     <div class="row">
