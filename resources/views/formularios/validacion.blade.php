@@ -1,6 +1,6 @@
 @extends('layouts.header')
 @section('titulo')
-    <b>Verificación de código ({{$codigo}})</b>
+    <b>Verificación de código</b>
 @endsection
 @section('contenido')
     <form action="/cotizacionvalidar" method="POST" class="wufoo leftLabel hideMarkers cotizacion">
