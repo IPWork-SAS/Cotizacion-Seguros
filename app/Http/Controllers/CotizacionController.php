@@ -16,7 +16,7 @@ class CotizacionController extends Controller
 {
     public function index()
     {
-        $valores_seguros=DB::table('valor_seguros')->select('valor_seguro')->get();
+        $valores_seguros=DB::table('valor_seguros')->select('valor_seguro')->distinct()->get();
         
         $fecha_min= date('Y-m-d');
         $fecha_max= date('Y-m-d');
