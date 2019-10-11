@@ -48,11 +48,11 @@ class CotizacionController extends Controller
            });
         */
 
-        /* Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
+        Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
             session('request')['nombres'],
             session('request')['apellidos'],
             session('codigo')
-        )); */
+        ));
         if (Mail::failures()) {
             return 'Lo sentimos, intentelo más tarde';
         } else {
