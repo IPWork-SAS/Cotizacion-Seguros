@@ -11,6 +11,7 @@ use Mail;
 use Carbon\Carbon;
 use App\Usuario;
 use App\Cotizacion;
+use App\Mail\EmailCotizacionAdmin;
 
 class CotizacionController extends Controller
 {
@@ -180,6 +181,9 @@ class CotizacionController extends Controller
         unset($planes_aseguradoras['Aseguradoras'][0]);
         unset($planes_aseguradoras['Planes'][0]);
         $valor_total = 0;
+
+        // send email admin
+        Mail::to(session('request')['correo'],env('MAIL_USERNAME'))->send(new EmailCotizacionAdmin($cotizaciones,$planes_aseguradoras,$valor_total));
       
 
         return view('formularios.cotizaciones',compact('cotizaciones','planes_aseguradoras','valor_total'));
