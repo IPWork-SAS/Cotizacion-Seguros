@@ -3,7 +3,7 @@
 <b>Cotización de seguros</b>
 @endsection
 @section('contenido')
-<form action="/cotizacionInfo" method="post" class="wufoo leftLabel hideMarkers cotizacion">
+<form action="/verificacion" method="post" class="wufoo leftLabel hideMarkers cotizacion">
     @csrf
     <div class="row">
         <h4><b>DATOS DEL COTIZANTE</b></h4>
