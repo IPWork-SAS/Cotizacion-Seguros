@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Usuario;
 use App\Cotizacion;
 use App\Mail\EmailCotizacionAdmin;
+use App\Mail\EmailCotizacionUsuario;
 
 class CotizacionController extends Controller
 {
@@ -23,6 +24,7 @@ class CotizacionController extends Controller
         $fecha_max= date('Y-m-d');
         $fecha_max++;
         return view('formularios.cotizacion',compact('valores_seguros','fecha_min','fecha_max'));
+        
     }
     public function informacionCliente(Request $request)
     {
@@ -30,24 +32,6 @@ class CotizacionController extends Controller
 
         $codigo = hash('crc32', rand());
          session(['codigo'=>$codigo]);
-
-        //Segunda forma
-        /* Mail::to($correo)->send(new EmailEnvioUsuario(
-             $nombres,$apellidos,$codigo
-         ));*/
-
-
-        //Primera forma
-        /* 
-        $subject = 'Código de Verificación';
-         $body = '';
-         Mail::to($user)->send(new MailNotify($user));
-         Mail::send([], [], function ($message) use($correo,$subject,$body){
-             $message->to($correo)
-             ->subject($subject)
-              ->setBody($body, 'text/html'); // for HTML rich messages
-           });
-        */
 
         Mail::to(session('request')['correo'])->send(new CodigoDeVerificacion(
             session('request')['nombres'],
@@ -183,9 +167,8 @@ class CotizacionController extends Controller
         $valor_total = 0;
 
         // send email admin
-        Mail::to(session('request')['correo'],env('MAIL_USERNAME'))->send(new EmailCotizacionAdmin($cotizaciones,$planes_aseguradoras,$valor_total));
-      
-
+        Mail::to(env('MAIL_USERNAME'))->send(new EmailCotizacionAdmin($cotizaciones,$planes_aseguradoras,$valor_total));
+        Mail::to(session('request')['correo'])->send(new EmailCotizacionUsuario($cotizaciones,$planes_aseguradoras,$valor_total));
         return view('formularios.cotizaciones',compact('cotizaciones','planes_aseguradoras','valor_total'));
     }
 }

@@ -31,7 +31,7 @@
 </head>
 
 <body>
-    <p>Hola <strong>{{$nombres}} {{$apellidos}}, </strong><br />
+    <p>Hola <strong>{{ $nombres }} {{ $apellidos }}, </strong><br />
         queremos informarte que haz hecho una solicitud de cotización con nosotros,
         utiliza el siguiente codigo para confirmar que haz hecho esta solicitud.
     </p>

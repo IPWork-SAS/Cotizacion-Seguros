@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailCotizacionAdmin extends Mailable
+class EmailCotizacionUsuario extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,6 +32,6 @@ class EmailCotizacionAdmin extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_USERNAME'), session('empresa'))
-                    ->view('mails.email_cotizaciones_admin')->subject('Cotización de seguros solicitadas');
+                    ->view('mails.email_cotizaciones_usuario')->subject('Cotización de seguros solicitadas');
     }
 }
